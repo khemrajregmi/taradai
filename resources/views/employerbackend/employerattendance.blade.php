@@ -1,0 +1,175 @@
+
+@extends('layouts.employerdashboardtemplate')
+@section('content')
+	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+
+		<div class="row">
+			<ol class="breadcrumb">
+				<li><a href="#"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
+				<li class="active">{{$current_time}}</li>
+
+			</ol>
+		</div><!--/.row-->
+		
+		<div class="row">
+			<div class="col-lg-12">
+
+				<h3 class="page-header">{{$heading}}</h3>
+        
+     {!! Form::open(array('url' => 'employer/dashboard/break', 'id' => 'signupForm', 'method' => 'POST', 'role' => 'form', 'class' => 'form-signin')) !!}
+            <div class="form-group">
+            <div class="col-md-12">
+                  
+                    <div class="col-md-4">
+                          <div class="col-md-4"><label>Going Out</label></div>
+
+                          <div class="col-md-4">
+                           <select name="break" class="form-control">
+                                                  <option value="1">1 hrs</option>
+                                                  <option value="2">2 hrs</option>
+                                                  <option value="3">3 hrs</option>
+                                                  <option value="4">4 hrs</option>
+                            </select>
+                          </div>
+                    </div>
+                     <div class="col-md-1"> <button type="submit" class="btn btn-primary">OK!!!!!</button></div>
+                      <div class="col-md-1"><button type="reset" class="btn btn-default">Reset </button> </div>
+              </div>
+
+            </div>
+        {!! Form::close() !!}
+			</div>
+				@if(Session::has('success'))
+            		<div class="alert alert-success">
+                        	{{Session::get('success')}}
+                </div>
+        @endif
+
+
+		</div>
+    
+     <div class="row">
+      <div class="col-lg-12">
+
+        <div class="panel panel-default">
+
+          <div class="panel-heading">Attendance
+
+          </div>
+          <div class="panel-body">
+
+
+            <!-- <table data-toggle="table" data-url="tables/data1.json"  data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc">
+                <thead>
+                <tr>
+                    <th data-field="state" data-checkbox="true" >Item ID</th>
+                    <th data-field="id" data-sortable="true">Item ID</th>
+                    <th data-field="name"  data-sortable="true">Item Name</th>
+                    <th data-field="price" data-sortable="true">Item Price</th>
+                </tr>
+                </thead>
+
+
+            </table> -->
+
+             
+             <div class="table-responsive">
+                              
+                                  <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                      <thead>
+                                          <tr>
+                                              <th>S.No.</th>
+                                              <th>Date</th>
+                                              <th>Login Time</th>
+                                              <th>logout Time</th>
+                                              <th>Attendance</th>
+                                              <th>Breaks</th>
+                                              <th>Totol Present Hrs</th>
+                                          </tr>
+                                      </thead>
+                                      <tbody>
+                                      
+                                        <?php
+                                         $count = ($page-1) * $take;
+                                        // $count=0;
+                                          ?>
+                                        
+                                        <?php
+                                         $total=0;
+                                         ?>
+                                        @foreach ($attendancedata as $data)
+                                          <!-- $totalDuration = $data->logout_time->diffInSeconds($data->login_time);
+                                          gmdate('H:i:s', $totalDuration); -->
+
+                                        
+                                          <tr class="<?php
+                                           echo ($count++%2 == 0)?'odd':'even'?>"
+                                           >
+                                            <td>{{$count}}</td>
+                                                <!-- <td>{{$data->username}}</td> -->
+                                                <td>{{$data->todaydate}}</td>
+                                                <td>{{$data->login_time}}</td>
+                                                <td>{{$data->logout_time}}</td>
+                                                <td>{{$data->attendance_status}}</td>
+                                                <td>{{$data->break}} hrs.</td>
+                                                <td><?php 
+                                                  $break= $data['break'];
+                                                  $breaksec=$break*3600;
+                                                  $Duration1 = $data['login_time'];
+                                                  $Duration2 = $data['logout_time'];
+                                                  $init = (strtotime($Duration2)-strtotime($Duration1))-$breaksec;
+                                                  // $init = 685;
+                                                  $hours = floor($init / 3600);
+                                                  $minutes = floor(($init / 60) % 60);
+                                                  $seconds = $init % 60;
+
+
+                                                  // echo "<pre>";
+                                                 echo  $hours.'hr   '.$minutes.'mins   '.$seconds.'sec';
+                                                  $total=$total+$init;
+                                                  // echo "</pre>";
+                                                  
+                                                ?></td>
+                                                <!-- <td><a href="{{url("admin/dashboard/employee/").'/'.$data->user_id}}" ><i class="icon-edit"></i></a></td>
+                                                <td><a href="{{url("admin/dashboard/employee/remove").'/'.$data->user_id}}" onClick="return confirm('Are you sure you want to remove this employer ? ')"><i class="icon-remove-sign"></i></a></td> -->
+                                            </tr>
+                                            
+                                            <!-- <tr><td><?php //echo $total;?></td></tr> -->
+                                        @endforeach
+                                         <?php 
+                                          // echo $total;
+                                          $hours = floor($total / 3600);
+                                                  $minutes = floor(($total / 60) % 60);
+                                                  $seconds = $total % 60;
+
+                                                  ?>
+                                                  <div class="alert alert-success">
+                                                  <?php
+                                                  // echo "<pre>";
+                                                 echo  "Your total working hrs is :::>  ".  $hours.'hr   '.$minutes.'mins   '.$seconds.'sec';
+                                                 ?>
+                                                 </div>
+                                         
+
+
+                                      </tbody>
+                                  </table>
+                                  <div class="col-sm-6">
+                          
+                        </div>  
+
+                       
+                      </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+	</div>	<!--/.main-->
+
+	<!-- Modal -->
+
+ 
+
+@endsection

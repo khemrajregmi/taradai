@@ -1,0 +1,5 @@
+@include('employerbackend.includes.head')
+@include('employerbackend.includes.header')
+@include('employerbackend.includes.sidebar')
+	@yield('content')
+@include('employerbackend.includes.footer')
