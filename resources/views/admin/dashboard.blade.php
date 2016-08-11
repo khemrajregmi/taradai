@@ -15,7 +15,7 @@
 				<h3 class="page-header">{{$heading}}</h3>
 			</div>
 				@if(Session::has('flash_message'))
-				    <div class="alert alert-success"><span class="glyphicon glyphicon-ok"></span><em> {!! session('flash_message') !!}</em></div>
+				    <div class="alert alert-success"><span class="glyphicon glyphicon-ok"></span><em> {!! session::get('flash_message') !!}</em></div>
 				@endif
   </div>  
 		</div><!--/.row-->

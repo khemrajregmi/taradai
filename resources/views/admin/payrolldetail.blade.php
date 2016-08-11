@@ -47,48 +47,48 @@
                                                   $seconds = $total % 60;
 
                                                   ?>
-                                                  <div class="alert alert-success">
+                                                  <!-- <div class="alert alert-success"> -->
                                                   
                                                   <?php
                                                     
                                                   // echo "<pre>";
 
-                                                 echo "Total working hrs is   "."  =>  ".  $hours.'hr   '.$minutes.'mins   '.$seconds.'sec'.'          ';
+                                                 // echo "Total working hrs is   "."  =>  ".  $hours.'hr   '.$minutes.'mins   '.$seconds.'sec'.'          ';
                                                 
-                                                echo $fulltime=$hours.'hr   '.$minutes.'mins';                                                  
+                                                 $fulltime=$hours.'hr   '.$minutes.'mins';                                                  
                                                  ?>
 
-                                                 </div>
+                                                 <!-- </div> -->
 
 
 
 
-                                                  <div class="alert alert-success">
+                                                  <!-- <div class="alert alert-success"> -->
                                                   
                                                   <?php
                                                     
                                                   
-                                                 echo " YOUR BASIC SALARY of THE MONTH is Rs  ::::> " ;
-                                                 foreach ($payroll as $pay) {
-                                                  echo   $pay['basic_pay'];
-                                                 }
+                                                 // echo " YOUR BASIC SALARY of THE MONTH is Rs  ::::> " ;
+                                                 // foreach ($payroll as $pay) {
+                                                  // echo   $pay['basic_pay'];
+                                                 // }
                                                  ?>
 
-                                                 </div>
+                                                 <!-- </div> -->
 
 
-                                                   <div class="alert alert-success">
+                                                   <!-- <div class="alert alert-success"> -->
                                                   
                                                   <?php
                                                     
                                                   
-                                                 echo "BASIC SALARY Tll TODAY is Rs  ::::> " ;
+                                                 // echo "BASIC SALARY Tll TODAY is Rs  ::::> " ;
                                                  foreach ($payroll as $pay) {
-                                                  echo  ($salary= $pay['basic_pay']*$total)/576000;
+                                                  $a= ($pay['basic_pay']*$total)/576000;
                                                  }
                                                  ?>
 
-                                                 </div>
+                                                 <!-- </div> -->
                                          
 
 
@@ -117,7 +117,7 @@
                         <td><input type="" name="" value="{{$name->fullname}}"></td>
                         <td> </td>
                         <td>Employee ID</td>
-                        <td><input type="" name="" value="#00{{$name->user_id}}"></td>@endforeach
+                        <td><input type="" class="userid" value="#00{{$id=$name->user_id}}" id="{{$id}}"></td>@endforeach
 
                       </tr>
                       <tr>
@@ -155,14 +155,14 @@
                         <td></td>
                         <td></td>
                         <td>Req.Working Hours</td>
-                        <td><input type="" name="" value="  160       |  {{$fulltime}}"></td>
+                        <td><input type="" name="" value="  160   | total worked hours"></td>
                       </tr>
                       <tr>
                         <td></td>
                         <td></td>
                         <td></td>
                         <td>Req.Working days</td>
-                        <td><input type="" name="" value="   23        | {{$totalattendence}}"></td>
+                        <td><input type="" name="" value="   23    | total worked days"></td>
                       </tr>
                       <div></div>
                       <div></div>
@@ -182,7 +182,7 @@
                       </tr>
                       <tr>
                         <td>Basic Pay</td>
-                        <td><input type="" name="" value="Rs. {{$a=$pay->basic_pay}}"></td>
+                        <td><input type="" name="" value="Rs. {{$a}}"></td>
                         <td></td>
                         <td>Advance Pay</td>
                         <td><input type="" name="" value="Rs. {{$aa=$pay->advance_pay}}"></td>
@@ -256,23 +256,23 @@
                         <td></td>
                         <td></td>
                         <td><b>GROSS PAYABLE</b></td>
-                        <td><input type="" name=""  value=""></td>
+                        <td><input type="" name=""  value="Rs.{{$totalbal=$totalearning-$totaldeductable}}"></td>
                       </tr>
 
                       <tr>
                         <td>Previous Balance</td>
-                        <td><input type="" name=""  value=""></td>
+                        <td><input type="" name=""  value="Rs.{{$prebal=$pay->pre_balance}}"></td>
                         <td></td>
                         <td><b>NET PAYABLE</b></td>
-                        <td><input type="" name=""  value=""></td>
+                        <td id="netpay"><input class="netpayment" type="" value="{{$netpay=$totalbal+$prebal}}"></td>
                       </tr>
 
                       <tr>
                         <td>Carry Over/Due</td>
-                        <td><input type="" name=""  value=""></td>
+                        <td class="here"><input type="text" id="hello" class="due" value=""></td>
                         <td></td>
                         <td><b>Actual Paid</b></td>
-                        <td><input type="" name=""  value=""></td>
+                        <td id="acpay"><input  class="actualpay" value=""></td>
                       </tr>
                       @endforeach
 
@@ -283,7 +283,7 @@
                   <div></div>
                   <hr>  
                   <div> 
-                      The Sum of Amount  NPR ......... is paid to Mr./Ms. ......, as a salary for the month of ..... Amount in words ........
+                      The Sum of Amount  NPR ......... is paid to Mr./Ms. ..{{$name->fullname}}...., as a salary for the month of ..... Amount in words ........
                   </div>
                   </div>
                   <form style="text-align:center;">
@@ -293,12 +293,61 @@
                     <a href="#" id="lnkPrint" target="_blank">Print</a>
                   </form>
                   <script type="text/javascript">
-                    $( document ).ready(function() {
-                        $('#lnkPrint').click(function()
-                         {
-                             window.print();
-                         });
-                    });
+                    // $( document ).ready(function() {
+                    //     $('#lnkPrint').click(function()
+                    //      {
+                    //          window.print();
+                    //      });
+                    // });
+
+
+                    $("#lnkPrint").click(function(res){
+                          // alert('hellow there submitting form');
+                         res.preventDefault();
+                        // alert('hello tara dai');
+                         var acamount = $("#acpay").find('.actualpay').val();
+                         var netpayment = $("#netpay").find('.netpayment').val();
+                         var userid = $(".userid").attr('id');
+
+
+
+                        // alert(acamount);
+                       //  alert(netpayment);
+                         var deu = netpayment-acamount;
+                         alert(deu);
+                         alert(userid);
+
+                        // var khem = document.getElementById.attr("class");
+                        // alert(khem);
+                         // alert($(".here").next().attr("id"));
+
+
+                         // $('.deu').append(deu).show();
+                         //alert($(".deu").attr('id'));
+                         // $.ajax({
+                         //  url: '<?php //echo url('/').'/admin/dashboard/updatedue'; ?>',
+                         //  type: 'POST',
+                         //  data: {'userid':userid, 'deu':deu,'token':token},
+                         //   beforeSend: function() {
+                         //      // alert('hello');
+                         //      $('#response').show();
+                         //    },
+                         //  success:function(resp){
+                         //      // alert(resp);
+
+                         //      if(resp == 'sucesss'){
+                         //         $('#lnkPrint').click(function()
+                         //           {
+                         //               window.print();
+                         //           });
+                         //         }
+                         //       else{
+                         //          var a = "sorry !!!!!!";
+                         //          alert(a);
+                         //       }
+                         //    }
+                         //  });
+                        });
                   </script>
 </body>
 
