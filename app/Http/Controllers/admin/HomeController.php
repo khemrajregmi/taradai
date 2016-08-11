@@ -106,15 +106,17 @@ public $userId = '';
     {
          // print_r($request->all());
         // print_r($input = Input::all());
+        // print_r($fullname=Input::get('firstname').'   '.Input::get('lastname'));
         // exit();
         $userdata = array(
                             'username' => Input::get('username'),
                             'password' => md5(Input::get('password')),
-                            'fullname' => Input::get('fullname'),
-                            'address' => Input::get('address'),
-                            'dob' => Input::get('dob'),
-                            'phone' => Input::get('contact'),
+                            'fullname' => Input::get('firstname').'   '.Input::get('lastname'),
                             'email' => Input::get('email'),
+                            'address' => Input::get('address'),
+                            'mobile' => Input::get('mobilenum'),
+                            'phone' => Input::get('phonenum'),
+                            'dob' => Input::get('dob'),
                             'IsSuperAdmin' => Input::get('isadmin'),
                             'status' => Input::get('status')       
                     );
@@ -290,6 +292,9 @@ public $userId = '';
 
 
     public function payrollEmployee($page=""){
+        // echo "Hello this is testing";
+        // echo $page;
+        // exit();
       
        $users = DB::table('userinfo AS ui')
             ->leftJoin('payroll AS p', 'ui.user_id', '=', 'p.user_id')
@@ -301,6 +306,9 @@ public $userId = '';
                         )
             ->orderBy('ui.user_id', 'asc')
             ->paginate(4);
+
+        // $prebal = DB::table('previous_balance')
+        //         ->where()
             // ->get();
 
         //       echo "<pre>";
@@ -538,5 +546,22 @@ public $userId = '';
         ->with('userId', $userId)
         ->with('heading', 'Change::Password'); 
       }
+
+
+
+
+ public function deuUpdate(Request $request)
+    {
+       // print_r($request->all());
+        // exit();
+        // DB::table('payroll')
+        //     ->where('user_id', $request->id)->update(
+        //                                  array(
+        //                                         'pre_balance'   =>   2;
+
+        //                                         )
+        //                                 );
+        //                                return "sucesss";
+        }
 
 }

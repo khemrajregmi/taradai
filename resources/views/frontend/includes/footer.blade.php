@@ -50,10 +50,10 @@
                               
 
                             </p>
-                            {!! Form::submit('Login', array('class' => 'submit btn-success btn btn-large')) !!}
+                            <div>{!! Form::submit('Login', array('class' => 'submit btn-success btn btn-large')) !!}
+                            <div id="loading"></div></div>
                     </div> 
-                    <p>
-                    </p>
+                    
                   
 
                     {!! Form::close() !!}    
@@ -189,6 +189,7 @@
 
 <script>
    $("form").submit(function(res){
+    
             // alert('hellow there submitting form');
            res.preventDefault();
            // alert('hello tara dai');
@@ -204,6 +205,7 @@
             data: {'email':email, 'password':password,'token':token},
              beforeSend: function() {
                 // alert('hello');
+                $('#loading').html('<img src="http://preloaders.net/preloaders/287/Filling%20broken%20ring.gif"> loading...');
                 $('#response').show();
               },
             success:function(resp){
@@ -223,6 +225,13 @@
               }
             });
           });
+   // $('#form').submit(function() {
+   //  $('#wait').show();
+   //  $.post('/somepage.htm', function() {
+   //      $('#wait').hide();
+   //  });
+   //  return false;
+// });
 </script>
 
    

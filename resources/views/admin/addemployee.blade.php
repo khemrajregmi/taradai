@@ -88,18 +88,34 @@
 
 
 
-						         <div class="form-group">
+						        <div class="form-group">
 						        <!-- <label for="inputFirstName" class="sr-only">Username</label> -->
-						        {{ Form::label('title', 'Fullname') }}
+						        {{ Form::label('title', 'First Name') }}
 						         <label for="inputLastName" class="sr-only">Fullname</label>
-						        {!! Form::text('fullname', null, [
+						        {!! Form::text('firstname', null, [
 						            'class'                         => 'form-control',
-						            'placeholder'                   => 'Full Name',
+						            'placeholder'                   => 'First Name',
 						            'required',
-						            'id'                            => 'inputFullName',
+						            'id'                            => 'inputFistName',
 						            'data-parsley-required-message' => 'Full Name is required',
 						            'data-parsley-trigger'          => 'change focusout',
-						            'data-parsley-pattern'          => '/^[a-zA-Z]*$/',
+						            'data-parsley-minlength'        => '2',
+						            'data-parsley-maxlength'        => '32'
+						        ]) !!}
+						        </div>
+
+
+						        <div class="form-group">
+						        <!-- <label for="inputFirstName" class="sr-only">Username</label> -->
+						        {{ Form::label('title', 'Last Name') }}
+						         <label for="inputLastName" class="sr-only">Fullname</label>
+						        {!! Form::text('lastname', null, [
+						            'class'                         => 'form-control',
+						            'placeholder'                   => 'Last Name',
+						            'required',
+						            'id'                            => 'inputLastName',
+						            'data-parsley-required-message' => 'Full Name is required',
+						            'data-parsley-trigger'          => 'change focusout',
 						            'data-parsley-minlength'        => '2',
 						            'data-parsley-maxlength'        => '32'
 						        ]) !!}
@@ -145,16 +161,33 @@
 
 						         <div class="form-group">
 						        <!-- <label for="inputFirstName" class="sr-only">Username</label> -->
-						        {{ Form::label('title', 'Contact') }}
+						        {{ Form::label('title', 'Moblile Number') }}
 								 <label for="inputLastName" class="sr-only">Contact</label>
-								        {!! Form::text('contact', null, [
+								        {!! Form::text('mobilenum', null, [
 								            'class'                         => 'form-control',
 								            'placeholder'                   => 'Contact',
 								            'required',
-								            'id'                            => 'inputContact',
+								            'id'                            => 'inputMobile',
 								            'data-parsley-required-message' => 'Contact is required',
 								            'data-parsley-trigger'          => 'change focusout',
-								            'data-parsley-pattern'          => '1234567789',
+								            'data-parsley-pattern'          => '01234567789',
+								            'data-parsley-minlength'        => '2',
+								            'data-parsley-maxlength'        => '32'
+								        ]) !!}
+								        </div>
+
+								 <div class="form-group">
+						        <!-- <label for="inputFirstName" class="sr-only">Username</label> -->
+						        {{ Form::label('title', 'Phone Number') }}
+								 <label for="inputLastName" class="sr-only">Contact</label>
+								        {!! Form::text('phonenum', null, [
+								            'class'                         => 'form-control',
+								            'placeholder'                   => 'Contact',
+								            'required',
+								            'id'                            => 'inputPhone',
+								            'data-parsley-required-message' => 'Contact is required',
+								            'data-parsley-trigger'          => 'change focusout',
+								            'data-parsley-pattern'          => '01234567789',
 								            'data-parsley-minlength'        => '2',
 								            'data-parsley-maxlength'        => '32'
 								        ]) !!}
@@ -194,7 +227,7 @@
 								        {{ Form::label('title', 'Status') }}
 								        <label for="inputLastName" class="sr-only">Status</label>
 								       
-								        {!! Form::select('status', array('Y' => 'Yes', 'N' => 'No'), null, [
+								        {!! Form::select('status', array('Y' => 'Active', 'N' => 'Deactive'), null, [
 								            'class'                         => 'form-control',
 								            'id'                            => 'inputisadmin',
 								            'data-parsley-required-message' => 'Status is required',

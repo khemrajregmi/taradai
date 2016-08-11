@@ -63,6 +63,7 @@
 	Route::post('admin/dashboard/payrolladd', 'admin\HomeController@payrollAdd');
 	Route::get('admin/dashboard/employee/remove/{id}', 'admin\HomeController@removeEmployee');
 	Route::get('admin/dashboard/attendencelist/{id}', 'admin\HomeController@employeeAttendance');
+	Route::post('admin/dashboard/updatedue', 'admin\HomeController@deuUpdate');
 	//admin section ends
 
 
